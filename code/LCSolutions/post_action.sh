@@ -18,7 +18,7 @@ next_branch_number=$(expr "$prev_branch_number" + 1)
 next_branch_name="dev-${next_branch_number}"
 
 echo -e "\e[93mSynchronizing the repo...\e[39m"
-git checkout dev
+git checkout dev-1
 git pull
 
 echo -e "\e[93mPreparing the repo...\e[39m"
