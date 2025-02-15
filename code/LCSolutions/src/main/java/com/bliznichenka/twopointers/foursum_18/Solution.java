@@ -17,6 +17,8 @@ public class Solution {
 
     private void kSum(int k,
                       int startIndex,
+                      // when we have a negative number, we'd increase the target
+                      // and this may cause overflowing of int, so long is used.
                       long target,
                       int[] nums,
                       List<List<Integer>> result,
