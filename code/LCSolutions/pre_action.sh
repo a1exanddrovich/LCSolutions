@@ -1,5 +1,40 @@
 #!/bin/bash
 
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    -h|--help)
+      cat << EOF
+Usage: ./pre_action.sh [options] [task_number]
+
+This script automates git add, commit, and push operations.
+
+Options:
+  -m|-M           ModsOnly mode. TShould be used when no files are added.
+  -msg "message"  Specify a custom commit message. Use quotes for messages with spaces.
+  -h|--help       Display this help message.
+
+Arguments:
+  task_number    The task number associated with the commit. If not provided, an
+                 attempt to auto-detect it is performed. In case of a failure,
+                 it will prompt to switch to the ModsOnly mode.
+
+Examples:
+  ./pre_action.sh                        Commit all changes with auto-detected task number.
+  ./pre_action.sh 123                    Commit all changes with task number 123.
+  ./pre_action.sh -m 456                 Commit only modifications with task number 456.
+  ./pre_action.sh -msg "Bug fix"         Commit all changes with custom message.
+  ./pre_action.sh -m -msg "Refactor" 789 Commit modifications only with custom message and task number.
+EOF
+      read -n 1 -s
+      exit 0
+      ;;
+    *)
+      break
+      ;;
+  esac
+  shift
+done
+
 git_status=$(git status --porcelain)
 
 if [[ -z "$git_status" ]]; then
@@ -105,7 +140,7 @@ if ! $commit_mods_only && [[ -z "$1" ]]; then
       echo -e "\e[36mTask number (auto-detected): $task_number\e[39m"
   elif $commit_mods_only; then
       echo -e "\e[36mNo task number is used.\e[39m"
-  elif ! $commit_mods_only && [[ -z "$task_number" ]]; then # This is always false
+  elif ! $commit_mods_only && [[ -z "$task_number" ]]; then
       echo -e "\e[31mERROR\e[39m"
       echo "Could not proceed without a task number. Please provide one or ensure new files are named correctly."
       read -n 1 -s
