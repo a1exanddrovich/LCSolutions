@@ -9,7 +9,7 @@ Usage: ./pre_action.sh [options] [task_number]
 This script automates git add, commit, and push operations.
 
 Options:
-  -m|-M           ModsOnly mode. TShould be used when no files are added.
+  -m|-M           ModsOnly mode. This should be used when no files are added.
   -msg "message"  Specify a custom commit message. Use quotes for messages with spaces.
   -h|--help       Display this help message.
 
@@ -44,7 +44,7 @@ if [[ -z "$git_status" ]]; then
 fi
 
 commit_mods_only=false
-commit_message="Done $task_number."
+commit_message=""
 task_number=""
 
 while [[ $# -gt 0 ]]; do
@@ -71,7 +71,7 @@ Usage: ./pre_action.sh [options] [task_number]
 This script automates git add, commit, and push operations.
 
 Options:
-  -m|-M           ModsOnly mode. TShould be used when no files are added.
+  -m|-M           ModsOnly mode. This should be used when no files are added.
   -msg "message"  Specify a custom commit message. Use quotes for messages with spaces.
   -h|--help       Display this help message.
 
@@ -107,7 +107,7 @@ done
 
 if ! $commit_mods_only; then
   if [[ -z "$task_number" ]]; then
-    echo -e "\e[36mNo task number provided, attempting automatic detection...\e[39m"
+    echo -e "\e[36mNo task number provided, running auto-detection...\e[39m"
     task_number=$(git status | grep -Eo 'new file:.*_[0-9]+' | head -n 1 | grep -Eo '_[0-9]+' | grep -Eo '[0-9]+')
   fi
 
@@ -136,9 +136,9 @@ if $commit_mods_only && [[ -z "$task_number" ]]; then
     task_number="Modifications Only"
 fi
 
-if ! $commit_mods_only && [[ -z "$1" ]]; then
-      echo -e "\e[36mTask number (auto-detected): $task_number\e[39m"
-  elif $commit_mods_only; then
+if [[ -z "$1" ]]; then
+      echo -e "\e[36mTask number: $task_number\e[39m"
+  elif $commit_mods_only && [[ -z "$task_number" ]]; then
       echo -e "\e[36mNo task number is used.\e[39m"
   elif ! $commit_mods_only && [[ -z "$task_number" ]]; then
       echo -e "\e[31mERROR\e[39m"
@@ -155,6 +155,12 @@ if $commit_mods_only; then
   echo -e "\e[94mCommitting in ModsOnly mode to the $branch_name...\e[39m"
 else
   echo -e "\e[94mCommitting to the $branch_name...\e[39m"
+fi
+
+if [[ -z "$commit_message" ]]; then
+    commit_message="Done $task_number."
+else
+    commit_message="$commit_message ($task_number)."
 fi
 
 git add .
