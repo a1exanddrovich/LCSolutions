@@ -36,4 +36,45 @@ public class Solution {
         }
         return arrResult;
     }
+
+    public int[] maxSlidingWindow1(int[] nums, int k) {
+        int[] result = new int[nums.length - k + 1];
+        int index = 0;
+
+        // represents the window
+        Deque<Integer> deque = new ArrayDeque<>();
+
+        // build initial window
+        int l = 0;
+        int r = 0;
+        while (r < k) {
+            while (!deque.isEmpty() && deque.peekLast() < nums[r]) {
+                deque.pollLast();
+            }
+            deque.addLast(nums[r]);
+            r++;
+        }
+
+        result[index] = deque.peekFirst();
+        index++;
+
+        // sliding the window
+        while (r < nums.length) {
+            if (deque.peekFirst() == nums[l]) {
+                deque.pollFirst();
+            }
+            l++;
+
+            while (!deque.isEmpty() && deque.peekLast() < nums[r]) {
+                deque.pollLast();
+            }
+            deque.addLast(nums[r]);
+            result[index] = deque.peekFirst();
+            index++;
+
+            r++;
+        }
+
+        return result;
+    }
 }
