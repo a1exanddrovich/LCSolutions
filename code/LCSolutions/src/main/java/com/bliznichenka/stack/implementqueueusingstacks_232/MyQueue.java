@@ -28,3 +28,36 @@ public class MyQueue {
         return stack.isEmpty();
     }
 }
+
+//class MyQueue {
+//    private final Stack<Integer> pushOnly = new Stack<>();
+//    private final Stack<Integer> popOnly = new Stack<>();
+//
+//    public void push(int x) {
+//        pushOnly.push(x);
+//    }
+//
+//    public int pop() {
+//        if (popOnly.isEmpty()) {
+//            moveToPopOnly();
+//        }
+//        return popOnly.pop();
+//    }
+//
+//    public int peek() {
+//        if (popOnly.isEmpty()) {
+//            moveToPopOnly();
+//        }
+//        return popOnly.peek();
+//    }
+//
+//    public boolean empty() {
+//        return pushOnly.isEmpty() && popOnly.isEmpty();
+//    }
+//
+//    private void moveToPopOnly() {
+//        while (!pushOnly.isEmpty()) {
+//            popOnly.push(pushOnly.pop());
+//        }
+//    }
+//}
