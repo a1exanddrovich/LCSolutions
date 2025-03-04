@@ -7,6 +7,7 @@ public class Solution {
         int r = len - 1;
         int peakIndex = 0;
 
+        // find the peak index
         while (l <= r) {
             int m = l + (r - l) / 2;
             int prev =m - 1 >= 0 ? mountainArr.get(m - 1) : Integer.MIN_VALUE;
@@ -23,6 +24,7 @@ public class Solution {
             }
         }
 
+        // try search the target on the left part
         l = 0;
         r = peakIndex;
         while (l <= r) {
@@ -38,6 +40,7 @@ public class Solution {
             }
         }
 
+        // try search the target on the right part
         l = peakIndex + 1;
         r = len - 1;
         while (l <= r) {
