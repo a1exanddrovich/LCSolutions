@@ -2,26 +2,21 @@ package com.bliznichenka.linkedlist.findtheduplicatenumber_287;
 
 public class Solution {
     public int findDuplicate(int[] nums) {
-        int l = 1;
-        int r = nums.length - 1;
+        int slow = 0;
+        int fast = 0;
 
-        while (l < r) {
-            int mid = l + (r - l) / 2;
+        do {
+            slow = nums[slow];
+            fast = nums[nums[fast]];
+        } while (slow != fast);
 
-            int count = 0;
-            for (int num : nums) {
-                if (mid >= num) {
-                    count++;
-                }
-            }
+        int slow2 = 0;
 
-            if (count > mid) {
-                r = mid;
-            } else {
-                l = mid + 1;
-            }
+        while (slow != slow2) {
+            slow2 = nums[slow2];
+            slow = nums[slow];
         }
 
-        return l;
+        return slow;
     }
 }
