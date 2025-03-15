@@ -19,11 +19,9 @@ public class Solution {
         deque.addFirst(root);
         while (!deque.isEmpty()) {
             int len = deque.size();
+            result.add(deque.peekLast().val);
             for (int i = 0; i < len; i++) {
                 TreeNode polled = deque.pollLast();
-                if (i == 0) {
-                    result.add(polled.val);
-                }
                 if (polled.right != null) {
                     deque.addFirst(polled.right);
                 }
