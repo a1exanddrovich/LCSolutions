@@ -3,7 +3,7 @@
 git_status=$(git status --porcelain)
 
 if [[ -n "$git_status" ]]; then
-  echo -e "\e[33mWARNING: There are uncommitted changes in your repository.\e[39m"
+  echo -e "\e[33mWARNING: There are uncommitted changes in the repo.\e[39m"
   echo "$git_status"
   read -p "Do you want to continue anyway? (y/N): " choice
 
