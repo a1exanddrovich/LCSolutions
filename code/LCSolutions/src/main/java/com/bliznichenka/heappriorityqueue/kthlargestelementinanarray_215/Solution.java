@@ -16,4 +16,33 @@ public class Solution {
 
         return minHeap.peek();
     }
+
+//    public int findKthLargest(int[] nums, int k) {
+//        return quickSelect(0, nums.length - 1, nums, nums.length - k);
+//    }
+//
+//    private static int quickSelect(int l, int r, int[] nums, int target) {
+//        int p = l;
+//
+//        for (int i = l; i < r; i++) {
+//            if (nums[i] <= nums[r]) {
+//                int temp = nums[p];
+//                nums[p] = nums[i];
+//                nums[i] = temp;
+//                p++;
+//            }
+//        }
+//
+//        int temp = nums[p];
+//        nums[p] = nums[r];
+//        nums[r] = temp;
+//
+//        if (target > p) {
+//            return quickSelect(p + 1, r, nums, target);
+//        } else if (target < p) {
+//            return quickSelect(l, p - 1, nums, target);
+//        } else {
+//            return nums[p];
+//        }
+//    }
 }
