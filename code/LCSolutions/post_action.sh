@@ -22,6 +22,7 @@ if [[ -n "$git_status" ]]; then
 fi
 
 prev_branch_name=$(git branch | grep "*" | cut -d ' ' -f2)
+
 echo -e "\e[36mRetrieved prev branch name: $prev_branch_name\e[39m"
 
 if [[ $prev_branch_name =~ ^[^-]*-([0-9]+)$ ]]; then
