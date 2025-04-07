@@ -37,3 +37,7 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+### Git operations related scripts ###
+pre_action.sh
+post_action.sh
