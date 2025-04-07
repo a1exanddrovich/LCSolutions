@@ -51,6 +51,8 @@ if [[ $? -eq 0 ]]; then
 else
   echo -e "\e[31mERROR: Git pull failed.\e[39m"
   echo "$git_pull_output"
+  # Restore to the previous state before the post actions began
+  git checkout "$prev_branch_number"
   read -n 1 -s
   exit 1
 fi
