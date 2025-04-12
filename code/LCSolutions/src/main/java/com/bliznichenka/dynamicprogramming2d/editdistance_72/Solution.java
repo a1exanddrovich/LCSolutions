@@ -7,15 +7,11 @@ public class Solution {
         int m = word2.length();
         int[][] dp = new int[n + 1][m + 1];
 
-        int ops = 0;
-        for (int i = n; i >= 0; i--) {
-            dp[i][m] = ops;
-            ops++;
+        for (int i = n - 1; i >= 0; i--) {
+            dp[i][m] = dp[i + 1][m] + 1;
         }
-        ops = 0;
-        for (int j = m; j >= 0; j--) {
-            dp[n][j] = ops;
-            ops++;
+        for (int j = m - 1; j >= 0; j--) {
+            dp[n][j] = dp[n][j + 1] + 1;
         }
 
         for (int i = n - 1; i >= 0; i--) {
