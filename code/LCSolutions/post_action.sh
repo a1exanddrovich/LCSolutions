@@ -37,14 +37,15 @@ fi
 next_branch_number=$(expr "$prev_branch_number" + 1)
 next_branch_name="dev-${next_branch_number}"
 
-echo -e "\e[94mSynchronizing the repo...\e[39m"
+echo -e "\e[94mRepo sync started...\e[39m"
 git checkout dev-1
 
+echo -e "\e[94mFetching the changes...\e[39m"
 git_pull_output=$(git pull origin dev-1 2>&1)
 
 if [[ $? -eq 0 ]]; then
   if [[ "$git_pull_output" == *"Already up to date."* ]]; then
-    echo -e "\e[33mRepo is already up to date.\e[39m"
+    echo -e "\e[33mNo changes found for the repo update.\e[39m"
     git checkout "$prev_branch_name"
     read -n 1 -s
     exit 0
@@ -52,6 +53,7 @@ if [[ $? -eq 0 ]]; then
 else
   echo -e "\e[31mERROR: Git pull failed.\e[39m"
   echo "$git_pull_output"
+  echo -e "\e[94mRestoring the initial repo state...\e[39m"
   # Restore to the previous state before the post actions began
   git checkout "$prev_branch_number"
   read -n 1 -s
