@@ -13,7 +13,7 @@ public class Solution {
                 return 0;
             }
             if (res < Integer.MIN_VALUE / 10
-                    || (res == Integer.MIN_VALUE / 10 && lastDigit > 8)) {
+                    || (res == Integer.MIN_VALUE / 10 && lastDigit < -8)) {
                 return 0;
             }
 
