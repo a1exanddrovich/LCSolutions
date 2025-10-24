@@ -40,3 +40,4 @@ build/
 
 ### Internal bookkeeping scripts config ###
 Projectfile
+*.sh
